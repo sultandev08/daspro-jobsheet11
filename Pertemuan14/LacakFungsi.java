@@ -1,3 +1,4 @@
+package Pertemuan14;
 public class LacakFungsi {
     static int kali2(int x) {
         return x*2;

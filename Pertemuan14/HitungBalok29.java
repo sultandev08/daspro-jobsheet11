@@ -1,3 +1,4 @@
+package Pertemuan14;
 public class HitungBalok29 {
 
     static int hitungLuas(int panjang, int lebar) {
