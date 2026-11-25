@@ -46,11 +46,31 @@ public class Kafe29 {
         return hargaItems[pilihanMenu - 1] * banyakItem;
     }
 
+    public static int hitungDiskon(int total, String kodePromo, boolean isMember) {
+        int persenDiskon = 0;
+
+        if (kodePromo.equals("DISKON50")) {
+            persenDiskon += 50;
+        } else if (kodePromo.equals("DISKON30")) {
+            persenDiskon += 30;
+        } else {
+            System.out.println("Kode promo invalid");
+        }
+
+        if (isMember) {
+            persenDiskon += 10;
+        }
+
+        return (total * persenDiskon) / 100;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Menu("Andi", true);
 
-        int totalKeseluruhan = 0;
+        boolean isMember = true;
+        Menu("Andi", isMember);
+
+        int totalHarga = 0;
         String lanjut = "y";
 
         while (lanjut.equalsIgnoreCase("y")) {
@@ -62,17 +82,24 @@ public class Kafe29 {
             } else {
                 System.out.print("Masukkan jumlah item yang ingin dipesan: ");
                 int banyakItem = sc.nextInt();
-
-                int subtotal = hitungTotalHargaNoAbsen(pilihanMenu, banyakItem);
-                totalKeseluruhan += subtotal;
-                System.out.println("Subtotal item ini: Rp " + subtotal);
+                totalHarga += hitungTotalHargaNoAbsen(pilihanMenu, banyakItem);
             }
 
             System.out.print("Apakah ingin memesan menu lain? (y/n): ");
             lanjut = sc.next();
         }
 
-        System.out.println("\nTotal keseluruhan pesanan Anda: Rp " + totalKeseluruhan);
+        System.out.print("Masukkan kode promo: ");
+        String kodePromo = sc.next();
+
+        int besarDiskon = hitungDiskon(totalHarga, kodePromo, isMember);
+        int totalBayar = totalHarga - besarDiskon;
+
+        System.out.println("\n--- Ringkasan Pembayaran ---");
+        System.out.println("Total harga  : Rp " + totalHarga);
+        System.out.println("Besar diskon : Rp " + besarDiskon);
+        System.out.println("Total bayar  : Rp " + totalBayar);
+
         sc.close();
     }
 }
