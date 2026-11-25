@@ -1,33 +1,32 @@
-import java.util.Scanner;
 public class HitungBalok29 {
 
-    static int hitungLuas(int pjg, int lb) {
-        int Luas = pjg * lb;
-        return Luas;
+    static int hitungLuas(int panjang, int lebar) {
+        return panjang * lebar;
     }
 
-    static int hitungVolume(int tinggi, int a, int b) {
-        int volume = hitungLuas(a, b) * tinggi;
-        return volume;
+    static int hitungVolume(int panjang, int lebar, int tinggi) {
+        return hitungLuas(panjang, lebar) * tinggi;
     }
+
+    static int hitungLuasPermukaanBalok(int p, int l, int t) {
+        return 2 * (hitungLuas(p, l) + hitungLuas(p, t) + hitungLuas(l, t));
+    }
+
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        int p, l, t, L, vol;
+        int[][] balok = {
+            {4, 3, 5},
+            {6, 2, 4},
+            {10, 5, 2}
+        };
 
-        System.out.println("Masukkan Panjang");
-        p = input.nextInt();
+        for (int i = 0; i < balok.length; i++) {
+            int p = balok[i][0];
+            int l = balok[i][1];
+            int t = balok[i][2];
 
-        System.out.println("Masukkan Lebar");
-        l = input.nextInt();
-
-        System.out.println("Masukkan Tinggi");
-        t = input.nextInt();
-
-        L = hitungLuas(p, l);
-        System.out.println("Luas persegi panjang adalah " + L);
-
-        vol = hitungVolume(t, p, l);
-        System.out.println("Volume balok adalah " + vol);
-        input.close();
+            System.out.println("Balok ke-" + (i + 1) + " (" + p + "x" + l + "x" + t + "):");
+            System.out.println("  Luas Permukaan : " + hitungLuasPermukaanBalok(p, l, t));
+            System.out.println("  Volume         : " + hitungVolume(p, l, t));
+        }
     }
 }
